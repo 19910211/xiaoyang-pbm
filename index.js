@@ -3,7 +3,9 @@ const message = require('./message/index')
 const dayjs = require('dayjs')
 const config = require('./config')
 
+console.log(config.account_list)
 const accountList = JSON.parse(config.account_list)
+console.log(accountList)
 
 if(accountList.length>0){
     accountList.forEach(item=>{
