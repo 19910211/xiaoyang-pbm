@@ -90,6 +90,9 @@ if(accountList.length>0){
         },
         headers:{
             xytoken:user.token
+        },
+        proxy:{
+            host:"119.3.184.84"
         }
     }).then(res=>{
         return res.data.data.find(item=>item.FunctionName==="产品研发部").Items
