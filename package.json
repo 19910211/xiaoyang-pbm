@@ -1,0 +1,25 @@
+{
+  "name": "xiaoyang-pbm",
+  "version": "1.0.0",
+  "description": "晓羊PBM自动填写",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raingrains/xiaoyang-pbm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raingrains/xiaoyang-pbm/issues"
+  },
+  "homepage": "https://github.com/raingrains/xiaoyang-pbm#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.2",
+    "nodemailer": "^6.7.5"
+  }
+}
