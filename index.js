@@ -3,10 +3,14 @@ const message = require('./message/index')
 const dayjs = require('dayjs')
 const config = require('./config')
 
-console.log(config.account_list)
 const accountList = JSON.parse(config.account_list)
-console.log(accountList)
 
+
+const pathList = {
+    path1:'http://pbmapi.xiaoyanggroup.com/api/Project/GetMainProjects',
+    path2:'https://pbmapi.xiaoyanggroup.com/api/WorkTime/GetWorkTimeTypes',
+    path3:'https://pbmapi.xiaoyanggroup.com/api/WorkTime/BatchCreateMainProjectDayWorkTime'
+}
 if(accountList.length>0){
     accountList.forEach(item=>{
         main(item)
@@ -35,7 +39,7 @@ if(accountList.length>0){
         selfProjectList:[],
         workTypeList:[]
     }
-   const taskList = await  axios.get("https://pbmapi.xiaoyanggroup.com/api/Project/GetMainProjects",{
+   const taskList = await  axios.get(pathList.path1,{
         params:{
             AscOrderById:false,
             page:1,
@@ -50,8 +54,7 @@ if(accountList.length>0){
         return res.data.data.data
     }).catch((err)=>{
         console.log(err);
-        console.log(err.response.status);
-        if(err.response.status === 401){
+        if(err){
             message.sendMail({
                 email:user.email,
                 text: err
@@ -79,7 +82,7 @@ if(accountList.length>0){
     state.selfProjectList = taskList.filter(item=>item.ProjectDirectorUserId===user.leaderUserId&&item.ProjectStatus===1)
 
     // 获取工作类别的列表数据
-    state.workTypeList  = await axios.get('https://pbmapi.xiaoyanggroup.com/api/WorkTime/GetWorkTimeTypes',{
+    state.workTypeList  = await axios.get(pathList.path2,{
         params:{
             projectId:state.selfProjectList[0].ProjectId
         },
@@ -114,7 +117,7 @@ if(accountList.length>0){
     const tipsText  = `
         您今日的项目【${state.selfProjectList[0].ProjectName}】的工时类别【${taskCompleteObj.WorkTimeTypeName}】已进行8小时的填报
     `
-    axios.post('https://pbmapi.xiaoyanggroup.com/api/WorkTime/BatchCreateMainProjectDayWorkTime',data,{
+    axios.post(pathList.path3,data,{
         headers:{
             xytoken:user.token
         }

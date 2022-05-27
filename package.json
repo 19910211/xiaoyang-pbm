@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/raingrains/xiaoyang-pbm#readme",
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^0.21.1",
     "dayjs": "^1.11.2",
     "nodemailer": "^6.7.5"
   }
