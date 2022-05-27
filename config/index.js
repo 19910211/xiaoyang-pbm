@@ -5,7 +5,8 @@ module.exports = {
 
 /**
 {
-    token:'8ab6d1d675cefc7dc39e86c7c02a4b65', //8ab6d1d675cefc7dc39e86c7c02a4b65
+    leaderUserId:'131348662220926576'
+    token:''
     workType:'代码开发',
     email:'1125089452@qq.com'
 }

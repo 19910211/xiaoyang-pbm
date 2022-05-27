@@ -1,12 +1,32 @@
 const axios = require('axios')
 const message = require('./message/index')
 const dayjs = require('dayjs')
-const config = require('../config')
+const config = require('./config')
 
-const accountList = config.account_list
-accountList.forEach(item=>{
-    main(item)
-})
+const accountList = JSON.parse(config.account_list)
+
+if(accountList.length>0){
+    accountList.forEach(item=>{
+        main(item)
+    })
+    
+}else{
+    message.sendMail({
+        email:'raingrains@foxmail.com',
+        text:`
+        晓羊PBM自动填写的github仓库需要配置account_list 格式为
+
+        [
+            {
+                leaderUserId:'领导的userId',
+                token:'自己的账号token', //8ab6d1d675cefc7dc39e86c7c02a4b65
+                workType:'代码开发', // 自己的工作类别
+                email:'消息提醒的邮箱账号'
+            }
+        ]
+        `
+    })
+}
 
  async function main(user){
     const state = {
