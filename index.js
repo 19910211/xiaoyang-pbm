@@ -35,7 +35,7 @@ if(accountList.length>0){
         selfProjectList:[],
         workTypeList:[]
     }
-   const taskList = await  axios.get("http://pbmapi.xiaoyanggroup.com/api/Project/GetMainProjects",{
+   const taskList = await  axios.get("https://pbmapi.xiaoyanggroup.com/api/Project/GetMainProjects",{
         params:{
             AscOrderById:false,
             page:1,
@@ -79,7 +79,7 @@ if(accountList.length>0){
     state.selfProjectList = taskList.filter(item=>item.ProjectDirectorUserId===user.leaderUserId&&item.ProjectStatus===1)
 
     // 获取工作类别的列表数据
-    state.workTypeList  = await axios.get('http://pbmapi.xiaoyanggroup.com/api/WorkTime/GetWorkTimeTypes',{
+    state.workTypeList  = await axios.get('https://pbmapi.xiaoyanggroup.com/api/WorkTime/GetWorkTimeTypes',{
         params:{
             projectId:state.selfProjectList[0].ProjectId
         },
