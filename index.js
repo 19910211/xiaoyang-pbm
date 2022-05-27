@@ -50,17 +50,21 @@ if(accountList.length>0){
         return res.data.data.data
     }).catch((err)=>{
         console.log(err);
-        if(err.response.status === 401){
-            message.sendMail({
+        message.sendMail({
                 email:user.email,
-                text: 'token信息已过期,请重新登陆'
+                text: err
             })
-        }else{
-            message.sendMail({
-                email:user.email,
-                text: err.response.statusText
-            })
-        }
+//         if(err){
+//             message.sendMail({
+//                 email:user.email,
+//                 text: 'token信息已过期,请重新登陆'
+//             })
+//         }else{
+//             message.sendMail({
+//                 email:user.email,
+//                 text: err
+//             })
+//         }
         return false
     })
 
