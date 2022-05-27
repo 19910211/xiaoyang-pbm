@@ -33,6 +33,6 @@ jobs:
       # 运行脚本
       - name: 运行脚本
         run: |
-          juejin_cookie='${{ secrets.JUEJIN_COOKIE }}' freeV2ray_cookie='${{ secrets.FREEV2RAY_COOKIE }}' email_pass='${{ secrets.EMAIL_PASS }}' email_address='${{ secrets.EMAIL_ADDRESS }}' email_account='${{ secrets.EMAIL_ACCOUNT }}' npm start
+         email_account='${{ secrets.EMAIL_ACCOUNT }}' account_list='${{ secrets.ACCOUNT_LIST }}' npm start
         env:
           CI: true
