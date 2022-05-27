@@ -3,6 +3,7 @@ const message = require('./message/index')
 const dayjs = require('dayjs')
 const config = require('./config')
 
+
 console.log('config.account_list',config.account_list)
 const accountList = JSON.parse(config.account_list)
 console.log('accountList:',accountList)
