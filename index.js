@@ -8,41 +8,50 @@ const axios = Axios.create({
 })
 
 
-console.log('config.account_list',config.account_list)
-const accountList = JSON.parse(config.account_list)
-console.log('accountList:',accountList)
-
-
-const pathList = {
-    path1:'Project/GetMainProjects',
-    path2:'WorkTime/GetWorkTimeTypes',
-    path3:'WorkTime/BatchCreateMainProjectDayWorkTime'
-}
-if(accountList.length>0){
-    accountList.forEach(item=>{
-        main(item)
-    })
+init()
+function init(){
+    console.log('config.account_list',config.account_list)
+    const accountList = JSON.parse(config.account_list)
+    console.log('accountList:',accountList)
     
-}else{
-    message.sendMail({
-        email:'raingrains@foxmail.com',
-        text:`
-        晓羊PBM自动填写的github仓库需要配置account_list 格式为
-
-        [
-            {
-                leaderUserId:'领导的userId',
-                token:'自己的账号token', //8ab6d1d675cefc7dc39e86c7c02a4b65
-                workType:'代码开发', // 自己的工作类别
-                email:'消息提醒的邮箱账号'
-            }
-        ]
-        `
-    })
+    if(new Date().getDay() === 0 && new Date().getDay()===6){
+        return 
+    }
+    const pathList = {
+        path1:'Project/GetMainProjects',
+        path2:'WorkTime/GetWorkTimeTypes',
+        path3:'WorkTime/BatchCreateMainProjectDayWorkTime'
+    }
+    if(accountList.length>0){
+        accountList.forEach(item=>{
+            main(item)
+        })
+        
+    }else{
+        message.sendMail({
+            email:'raingrains@foxmail.com',
+            text:`
+            晓羊PBM自动填写的github仓库需要配置account_list 格式为
+    
+            [
+                {
+                    leaderUserId:'领导的userId',
+                    token:'自己的账号token', //8ab6d1d675cefc7dc39e86c7c02a4b65
+                    workType:'代码开发', // 自己的工作类别
+                    email:'消息提醒的邮箱账号'
+                }
+            ]
+            `
+        })
+    }
+    
 }
+
 
 
  async function main(user){
+   
+    
     const state = {
         selfProjectList:[],
         workTypeList:[]
