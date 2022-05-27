@@ -1,7 +1,11 @@
-const axios = require('axios')
+const Axios = require('axios')
 const message = require('./message/index')
 const dayjs = require('dayjs')
 const config = require('./config')
+
+const axios = Axios.create({
+    baseURL:'http://pbmapi.xiaoyanggroup.com/api/'
+})
 
 
 console.log('config.account_list',config.account_list)
@@ -10,9 +14,9 @@ console.log('accountList:',accountList)
 
 
 const pathList = {
-    path1:'http://pbmapi.xiaoyanggroup.com/api/Project/GetMainProjects',
-    path2:'https://pbmapi.xiaoyanggroup.com/api/WorkTime/GetWorkTimeTypes',
-    path3:'https://pbmapi.xiaoyanggroup.com/api/WorkTime/BatchCreateMainProjectDayWorkTime'
+    path1:'Project/GetMainProjects',
+    path2:'WorkTime/GetWorkTimeTypes',
+    path3:'WorkTime/BatchCreateMainProjectDayWorkTime'
 }
 if(accountList.length>0){
     accountList.forEach(item=>{
@@ -37,9 +41,6 @@ if(accountList.length>0){
     })
 }
 
-axios.get('http://www.baidu.com').then(res=>{
-    console.log(res);
-})
 
  async function main(user){
     const state = {
@@ -81,6 +82,8 @@ axios.get('http://www.baidu.com').then(res=>{
         return false
     })
 
+    return
+
 
     if (!taskList) {
         return
@@ -95,9 +98,6 @@ axios.get('http://www.baidu.com').then(res=>{
         },
         headers:{
             xytoken:user.token
-        },
-        proxy:{
-            host:"119.3.184.84"
         }
     }).then(res=>{
         return res.data.data.find(item=>item.FunctionName==="产品研发部").Items
