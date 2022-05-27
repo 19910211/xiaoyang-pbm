@@ -37,6 +37,10 @@ if(accountList.length>0){
     })
 }
 
+axios.get('http://www.baidu.com').then(res=>{
+    console.log(res);
+})
+
  async function main(user){
     const state = {
         selfProjectList:[],
