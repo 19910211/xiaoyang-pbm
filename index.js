@@ -6,7 +6,11 @@ const config = require('./config')
 const axios = Axios.create({
     baseURL:'http://pbmapi.xiaoyanggroup.com/api/'
 })
-
+const pathList = {
+    path1:'Project/GetMainProjects',
+    path2:'WorkTime/GetWorkTimeTypes',
+    path3:'WorkTime/BatchCreateMainProjectDayWorkTime'
+}
 
 init()
 function init(){
@@ -17,11 +21,7 @@ function init(){
     if(new Date().getDay() === 0 && new Date().getDay()===6){
         return 
     }
-    const pathList = {
-        path1:'Project/GetMainProjects',
-        path2:'WorkTime/GetWorkTimeTypes',
-        path3:'WorkTime/BatchCreateMainProjectDayWorkTime'
-    }
+  
     if(accountList.length>0){
         accountList.forEach(item=>{
             main(item)
@@ -50,7 +50,6 @@ function init(){
 
 
  async function main(user){
-   
     
     const state = {
         selfProjectList:[],
@@ -90,6 +89,7 @@ function init(){
 //         }
         return false
     })
+    console.log('axios');
 
     return
 
