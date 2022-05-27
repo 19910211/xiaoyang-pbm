@@ -49,7 +49,7 @@ if(accountList.length>0){
     }).then(res=>{
         return res.data.data.data
     }).catch((err)=>{
-        console.log(err.response);
+        console.log(err);
         if(err.response.status === 401){
             message.sendMail({
                 email:user.email,
