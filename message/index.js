@@ -8,6 +8,7 @@ const config = require('../config')
  * 
  * @param {Object} content 
  *  email: 发送的邮箱
+ *  subject: 发送的主题
  *  text: 发送的内容
  */
 exports.sendMail = (content)=>{
@@ -30,9 +31,9 @@ const transporter = nodeMailer.createTransport(emailConfig)
 // 创建一个收件人对象
 const mail = {
   // 发件人 邮箱  '昵称<发件人邮箱>' 注意： 发件人的邮箱必须和授权配置的邮箱相同，昵称可以随便填
-  from: `晓羊PBM签到结果<${config.email_account}>`,
+  from: `${content.subject||'晓羊PBM签到结果'}<${config.email_account}>`,
   // 主题
-  subject: '晓羊PBM签到结果',
+  subject: `${content.subject||'晓羊PBM签到结果'}`,
   // 收件人 的邮箱 可以是其他邮箱 不一定是qq邮箱
   to: content.email,
   // 内容

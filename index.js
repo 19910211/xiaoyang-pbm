@@ -16,20 +16,33 @@ init()
 async function init(){
     
     const accountList = JSON.parse(config.account_list)
+    console.log(accountList);
 
     // 接入接口坞的接口 判断当前是否是工作日 地址：http://www.apihubs.cn/#/holiday
   const isWorkDay =await axios.get(`https://api.apihubs.cn/holiday/get?field=workday&date=${dayjs(new Date()).format('YYYYMMDD')}&workday=1&cn=1&size=31`).then(res=>{
       return res.data.data.list.length >0
   })
-
+  console.log('今天不是工作日，不需要填报晓羊PBM哦~');
+ 
   // 如果不是工作日，则不执行下面的语句
   if (!isWorkDay) return
 
   console.log('今天是工作日，需要填报晓羊PBM哦~');
  
     if(accountList.length>0){
+        const arr = []
         accountList.forEach(item=>{
             main(item)
+            arr.push(main(item))
+        })
+
+        message.sendMail({
+            email:'raingrains@foxmail.com',
+            text:`
+            ${dayjs(new Date()).format('YYYY年MM月DD日')}晓羊PBM脚本运行结果:
+                ${JSON.stringify(arr)}
+            `,
+            subject:`${dayjs(new Date()).format('YYYY年MM月DD日')}晓羊PBM脚本运行结果`
         })
         
     }else{
@@ -58,7 +71,9 @@ async function init(){
     
     const state = {
         selfProjectList:[],
-        workTypeList:[]
+        workTypeList:[],
+        status:'error',
+        message:null
     }
    const taskList = await  axios.get(pathList.path1,{
         params:{
@@ -78,6 +93,7 @@ async function init(){
             email:user.email,
             text: err
         })
+        state.message = err
 //         if(err){
 //             message.sendMail({
 //                 email:user.email,
@@ -95,7 +111,11 @@ async function init(){
 
 
     if (!taskList) {
-        return
+        return {
+            user:user.userName,
+            status:state.status,
+            message:state.errorMessage
+        }
     }
 
     state.selfProjectList = taskList.filter(item=>item.ProjectDirectorUserId===user.leaderUserId&&item.ProjectStatus===1)
@@ -133,9 +153,8 @@ async function init(){
     const tipsText  = `
         您今日的项目【${state.selfProjectList[0].ProjectName}】的工时类别【${taskCompleteObj.WorkTimeTypeName}】已进行8小时的填报
     `
-    console.log(tipsText);
 
-    axios.post(pathList.path3,data,{
+     await axios.post(pathList.path3,data,{
         headers:{
             xytoken:user.token
         }
@@ -146,11 +165,20 @@ async function init(){
                 email:user.email,
                 text:  res.data.msg
             })
+            state.message = res.data.msg
+            state.status = 'error'
         }else{
             message.sendMail({
                 email:user.email,
                 text:  tipsText
             })
+            state.message =  tipsText
+            state.status = 'success'
         }
     })
+    return {
+        user:user.userName,
+        status:state.status,
+        message:state.message
+    }
 }
