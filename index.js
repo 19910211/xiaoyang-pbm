@@ -13,15 +13,20 @@ const pathList = {
 }
 
 init()
-function init(){
+async function init(){
     
     const accountList = JSON.parse(config.account_list)
-    
-    if(new Date().getDay() === 0 || new Date().getDay()===6){
 
-        return 
-    }
-  
+    // 接入接口坞的接口 判断当前是否是工作日 地址：http://www.apihubs.cn/#/holiday
+  const isWorkDay =await axios.get(`https://api.apihubs.cn/holiday/get?field=workday&date=${dayjs(new Date()).format('YYYYMMDD')}&workday=1&cn=1&size=31`).then(res=>{
+      return res.data.data.list.length >0
+  })
+
+  // 如果不是工作日，则不执行下面的语句
+  if (!isWorkDay) return
+
+  console.log('今天是工作日，需要填报晓羊PBM哦~');
+ 
     if(accountList.length>0){
         accountList.forEach(item=>{
             main(item)
