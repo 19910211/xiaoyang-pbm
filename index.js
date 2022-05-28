@@ -16,7 +16,7 @@ init()
 async function init(){
     
     const accountList = JSON.parse(config.account_list)
-    console.log(accountList);
+//     console.log(accountList);
 
     // 接入接口坞的接口 判断当前是否是工作日 地址：http://www.apihubs.cn/#/holiday
   const isWorkDay =await axios.get(`https://api.apihubs.cn/holiday/get?field=workday&date=${dayjs(new Date()).format('YYYYMMDD')}&workday=1&cn=1&size=31`).then(res=>{
