@@ -123,17 +123,12 @@ function init(){
         remarks:''
     }
 
-    
 
     // 填报成功的消息提示
     const tipsText  = `
         您今日的项目【${state.selfProjectList[0].ProjectName}】的工时类别【${taskCompleteObj.WorkTimeTypeName}】已进行8小时的填报
     `
     console.log(tipsText);
-    message.sendMail({
-        email:user.email,
-        text:  tipsText
-    })
 
     axios.post(pathList.path3,data,{
         headers:{
