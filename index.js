@@ -19,7 +19,7 @@ function init(){
     
     if(new Date().getDay() === 0 || new Date().getDay()===6){
 
-        // return 
+        return 
     }
   
     if(accountList.length>0){
@@ -134,7 +134,6 @@ function init(){
         email:user.email,
         text:  tipsText
     })
-    return 
 
     axios.post(pathList.path3,data,{
         headers:{
