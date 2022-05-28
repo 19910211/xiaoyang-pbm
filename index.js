@@ -4,7 +4,7 @@ const dayjs = require('dayjs')
 const config = require('./config')
 
 const axios = Axios.create({
-    baseURL:'http://pbmapi.xiaoyanggroup.com/api/'
+    baseURL:'https://pbmapi.xiaoyanggroup.com/api/'
 })
 const pathList = {
     path1:'Project/GetMainProjects',
@@ -14,12 +14,12 @@ const pathList = {
 
 init()
 function init(){
-    console.log('config.account_list',config.account_list)
-    const accountList = JSON.parse(config.account_list)
-    console.log('accountList:',accountList)
     
-    if(new Date().getDay() === 0 && new Date().getDay()===6){
-        return 
+    const accountList = JSON.parse(config.account_list)
+    
+    if(new Date().getDay() === 0 || new Date().getDay()===6){
+
+        // return 
     }
   
     if(accountList.length>0){
@@ -69,13 +69,10 @@ function init(){
     }).then(res=>{
         return res.data.data.data
     }).catch((err)=>{
-        console.log(err);
-        if(err){
-            message.sendMail({
-                email:user.email,
-                text: err
-            })
-        }
+        message.sendMail({
+            email:user.email,
+            text: err
+        })
 //         if(err){
 //             message.sendMail({
 //                 email:user.email,
@@ -89,9 +86,7 @@ function init(){
 //         }
         return false
     })
-    console.log('axios');
-
-    return
+    
 
 
     if (!taskList) {
@@ -128,14 +123,19 @@ function init(){
         remarks:''
     }
 
-    console.log(111);
-    return 
-
+    
 
     // 填报成功的消息提示
     const tipsText  = `
         您今日的项目【${state.selfProjectList[0].ProjectName}】的工时类别【${taskCompleteObj.WorkTimeTypeName}】已进行8小时的填报
     `
+    console.log(tipsText);
+    message.sendMail({
+        email:user.email,
+        text:  tipsText
+    })
+    return 
+
     axios.post(pathList.path3,data,{
         headers:{
             xytoken:user.token
