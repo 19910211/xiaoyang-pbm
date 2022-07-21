@@ -59,20 +59,25 @@ async function handle(user){
             xytoken:token
         }
     }).then(res=>{
-        // console.log('taskListRes',res.data.data)
 
         return res.data.data.filter(item=>{
             return new Date().getTime() > new Date(item.PlanStartTime).getTime() && new Date().getTime() < new Date(item.PlanEndTime).getTime()
         })
     })
 
-    // console.log('taskList',taskList)
 
     let content = ''
-    taskList.forEach(async item=>{
-       await submitTask(item,token,user.workType)
-       content += `您的${item.TaskContent}任务，已填报完成，请您知晓！\n`
-    })
+
+    for (let i = 0; i < taskList.length; i++) {
+        // const element = array[i];
+        await submitTask(item,token,user.workType)
+        content += `您的${item.TaskContent}任务，已填报完成，请您知晓！\n`
+        
+    }
+    // taskList.forEach(async item=>{
+    //    await submitTask(item,token,user.workType)
+    //    content += `您的${item.TaskContent}任务，已填报完成，请您知晓！\n`
+    // })
 
     console.log('content',content)
     // 消息推送
