@@ -157,8 +157,7 @@ async function submitTask(task,token,workType){
             xytoken:token
         }
     }).then(res=>{
-        console.log('填报完成-接口返回',res)
+        console.log('填报完成-接口返回',res.data.data)
     })
-
     
 }
