@@ -70,8 +70,8 @@ async function handle(user){
 
     for (let i = 0; i < taskList.length; i++) {
         // const element = array[i];
-        await submitTask(item,token,user.workType)
-        content += `您的${item.TaskContent}任务，已填报完成，请您知晓！\n`
+        await submitTask(taskList[i],token,user.workType)
+        content += `您的${taskList[i].TaskContent}任务，已填报完成，请您知晓！\n`
         
     }
     // taskList.forEach(async item=>{
