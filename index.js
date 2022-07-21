@@ -66,7 +66,9 @@ async function handle(user){
     })
 
 
-    let content = ''
+    let content = `${user.username}的填报结果
+
+    `
 
     for (let i = 0; i < taskList.length; i++) {
         // const element = array[i];
