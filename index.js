@@ -11,7 +11,11 @@ const axios = Axios.create({
 const accountList = JSON.parse(config.account_list)
 console.log('accountList',accountList)
 
-init()
+if(accountList.length>0){
+    init()
+}else{
+    console.log('请检查config配置',config)
+}
 
 
 async function init(){
