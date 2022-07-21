@@ -22,6 +22,7 @@ async function init(){
 
     // 接入接口坞的接口 判断当前是否是工作日 地址：http://www.apihubs.cn/#/holiday
   const isWorkDay =await axios.get(`https://api.apihubs.cn/holiday/get?field=workday&date=${dayjs(new Date()).format('YYYYMMDD')}&workday=1&cn=1&size=31`).then(res=>{
+    console.log('工作日',res.data.data);
       return res.data.data.list.length >0
   })
  
@@ -136,7 +137,6 @@ async function submitTask(task,token,workType){
 
     
 
-    return 
 
     // 提交PBM填报任务
     await axios.post('https://pbmapi.xiaoyanggroup.com/api/WorkTime/BatchCreateMainProjectDayWorkTime',{
