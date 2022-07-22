@@ -32,8 +32,9 @@ async function init(){
     return
   }
 
-//   console.log('今天是工作日，需要填报晓羊PBM哦~',new Date(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')).getTime());
+  console.log('今天是工作日，需要填报晓羊PBM哦~',new Date(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')).getTime());
   
+return
   accountList.forEach(item=>{
     handle(item)
   })
