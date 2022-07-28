@@ -125,13 +125,12 @@ async function submitTask(task,token,workType){
     const workTypeId = workTypes.find(item=>item.WorkTimeTypeName===workType||'代码开发').WorkTimeTypeId
 
     console.log('任务状态',{
-        title:taskDetail.TaskContent,
         "fillInDateTime": dayjs(new Date()).format('YYYY-MM-DD'),
-        "projectId": taskDetail.ProjectId,
-        "fillInTime": taskDetail.WorkTimeEstimate,
+        "projectId": String(taskDetail.ProjectId),
+        "fillInTime": taskDetail.WorkTimeEstimate>8?8:taskDetail.WorkTimeEstimate,
         "workType": workTypeId,
         "workDes": "",
-        "taskId": taskDetail.Id,
+        "taskId": String(taskDetail.Id),
         "taskState": dayjs(new Date()).format("YYYY-MM-DD") === dayjs(taskDetail.PlanEndTime).format("YYYY-MM-DD") ? 3: 2
     })
 
@@ -144,7 +143,7 @@ async function submitTask(task,token,workType){
             {
                 "fillInDateTime": dayjs(new Date()).format('YYYY-MM-DD'),
                 "projectId": String(taskDetail.ProjectId),
-                "fillInTime": taskDetail.WorkTimeEstimate,
+                "fillInTime": taskDetail.WorkTimeEstimate>8?8:taskDetail.WorkTimeEstimate,
                 "workType": workTypeId,
                 "workDes": "",
                 "taskId": String(taskDetail.Id),
